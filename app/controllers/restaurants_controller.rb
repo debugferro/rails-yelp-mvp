@@ -6,6 +6,7 @@ class RestaurantsController < ApplicationController
   end
 
   def show
+    @review = Review.new
   end
 
   def new
@@ -23,7 +24,14 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
+  end
 
+  def update
+    if @restaurant.update(restaurant_params)
+      redirect_to @restaurant, notice: 'Restaurant updated!'
+    else
+      render :edit
+    end
   end
 
   def destroy

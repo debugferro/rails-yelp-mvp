@@ -10,11 +10,24 @@
 <hr>
 
 <% @restaurant.reviews.each do |r| %>
-<h3>
-  <%= r.rating %> Stars
-</h3>
-<p>
-  <%= r.content %>
-</p>
-<hr>
+  <h3>
+    <%= r.rating %> Stars
+  </h3>
+  <p>
+    <%= r.content %>
+  </p>
+  <hr>
+<% end %>
+<% if @restaurant.reviews.empty? %>
+  <h2>There is no reviews yet! =(</h2>
+  <p>Be the first to review!</p>
+  <hr>
+<% end %>
+
+<%= simple_form_for [@restaurant, @review] do |f| %>
+  <%= f.input :content %>
+  <% rating = [['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]] %>
+  <%= f.label :rating %>
+  <%= f.select :rating, rating %>
+  <%= f.submit %>
 <% end %>
